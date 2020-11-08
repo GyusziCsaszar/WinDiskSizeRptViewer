@@ -52,7 +52,7 @@ constructor TFormMain.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
 
-  Application.Title := 'Win Disk Size - Report Viewer (FastReport 6) v1.03';
+  Application.Title := 'Win Disk Size - Report Viewer (FastReport 6) v1.04';
 
   Self.Caption := Application.Title;
 

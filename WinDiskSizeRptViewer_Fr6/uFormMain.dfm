@@ -99,17 +99,6 @@ object FormMain: TFormMain
     ParentBackground = False
     TabOrder = 6
   end
-  object pnlCover: TPanel
-    Left = 0
-    Top = -2
-    Width = 241
-    Height = 155
-    Anchors = [akLeft, akTop, akRight, akBottom]
-    BevelOuter = bvNone
-    Caption = 'Loading data...'
-    TabOrder = 7
-    Visible = False
-  end
   object btnReport: TButton
     Left = 631
     Top = 247
@@ -120,19 +109,28 @@ object FormMain: TFormMain
     TabOrder = 8
     OnClick = btnReportClick
   end
+  object pnlCover: TPanel
+    Left = 0
+    Top = -2
+    Width = 776
+    Height = 455
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    BevelOuter = bvNone
+    Caption = 'Loading data...'
+    TabOrder = 7
+    Visible = False
+  end
   object conAdo: TADOConnection
-    Connected = True
     ConnectionString = 
       'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=D:\Z\RessiveWinDisk' +
       'Size DISK MAP REPORTs\WinDiskSizeRpt MAIN (2020.10.17.).mdb;'
     LoginPrompt = False
     Mode = cmShareDenyNone
     Provider = 'Microsoft.Jet.OLEDB.4.0'
-    Left = 112
+    Left = 48
     Top = 40
   end
   object qryAdo_Tasks: TADOQuery
-    Active = True
     Connection = conAdo
     CursorType = ctStatic
     Parameters = <>
@@ -154,7 +152,7 @@ object FormMain: TFormMain
       'WHERE FolderRAW.TaskID = 1'
       'ORDER BY Task.ID')
     Left = 48
-    Top = 152
+    Top = 128
   end
   object ds_Tasks: TDataSource
     DataSet = qryAdo_Tasks
@@ -162,7 +160,6 @@ object FormMain: TFormMain
     Top = 152
   end
   object qryAdo_Folders: TADOQuery
-    Active = True
     Connection = conAdo
     CursorType = ctStatic
     Parameters = <>
@@ -211,7 +208,7 @@ object FormMain: TFormMain
         'thShort83, B.NameLong, B.PathLong'
       'ORDER BY B.NameLong, B.ReportSubTaskID')
     Left = 48
-    Top = 312
+    Top = 288
   end
   object ds_Folders: TDataSource
     DataSet = qryAdo_Folders
@@ -238,7 +235,7 @@ object FormMain: TFormMain
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 44140.716742361100000000
-    ReportOptions.LastChange = 44142.758383078700000000
+    ReportOptions.LastChange = 44142.786742210700000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       'begin'
@@ -643,7 +640,7 @@ object FormMain: TFormMain
         FillType = ftBrush
         Frame.Typ = []
         Height = 30.236240000000000000
-        Top = 445.984540000000000000
+        Top = 491.338900000000000000
         Width = 718.110700000000000000
         object Memo12: TfrxMemoView
           AllowVectorExport = True
@@ -864,32 +861,12 @@ object FormMain: TFormMain
         FillType = ftBrush
         Frame.Typ = []
         Height = 18.897650000000000000
-        Top = 366.614410000000000000
+        Top = 411.968770000000000000
         Width = 718.110700000000000000
         DataSet = frxDBDS_Folders
         DataSetName = 'frxDBDataset2'
         RowCount = 0
         Stretched = True
-        object frxDBDataset2CpyCnt: TfrxMemoView
-          IndexTag = 1
-          AllowVectorExport = True
-          Width = 79.370130000000000000
-          Height = 18.897650000000000000
-          StretchMode = smMaxHeight
-          DataField = 'CpyCnt'
-          DataSet = frxDBDS_Folders
-          DataSetName = 'frxDBDataset2'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -13
-          Font.Name = 'Arial'
-          Font.Style = []
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          HAlign = haCenter
-          Memo.UTF8W = (
-            '[frxDBDataset2."CpyCnt"]')
-          ParentFont = False
-        end
         object frxDBDataset2Label: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
@@ -910,10 +887,52 @@ object FormMain: TFormMain
             '[frxDBDataset2."Label"]')
           ParentFont = False
         end
+      end
+      object GroupHeader1: TfrxGroupHeader
+        FillType = ftBrush
+        Frame.Typ = []
+        Height = 22.677180000000000000
+        Top = 366.614410000000000000
+        Width = 718.110700000000000000
+        Condition = 'frxDBDataset2."NameLong"'
+        KeepTogether = True
+        Stretched = True
+        object frxDBDataset2CpyCnt: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Top = 3.779530000000000000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          StretchMode = smMaxHeight
+          DataField = 'CpyCnt'
+          DataSet = frxDBDS_Folders
+          DataSetName = 'frxDBDataset2'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clRed
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          HAlign = haCenter
+          Highlight.ApplyFill = False
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clGreen
+          Highlight.Font.Height = -13
+          Highlight.Font.Name = 'Arial'
+          Highlight.Font.Style = [fsBold]
+          Highlight.Condition = '<frxDBDataset2."CpyCnt"> > 1'
+          Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDataset2."CpyCnt"]')
+          ParentFont = False
+          VAlign = vaCenter
+        end
         object frxDBDataset2NameLong: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
           Left = 226.771800000000000000
+          Top = 3.779530000000000000
           Width = 143.622140000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
@@ -929,11 +948,13 @@ object FormMain: TFormMain
           Memo.UTF8W = (
             '[frxDBDataset2."NameLong"]')
           ParentFont = False
+          VAlign = vaCenter
         end
         object frxDBDataset2FileSizeSUMStr: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
           Left = 370.393940000000000000
+          Top = 3.779530000000000000
           Width = 79.370130000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
@@ -950,11 +971,13 @@ object FormMain: TFormMain
           Memo.UTF8W = (
             '[frxDBDataset2."FileSizeSUMStr"]')
           ParentFont = False
+          VAlign = vaCenter
         end
         object frxDBDataset2FileCountSUM: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
           Left = 449.764070000000000000
+          Top = 3.779530000000000000
           Width = 68.031540000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
@@ -971,11 +994,13 @@ object FormMain: TFormMain
           Memo.UTF8W = (
             '[frxDBDataset2."FileCountSUM"]')
           ParentFont = False
+          VAlign = vaCenter
         end
         object frxDBDataset2MinFileDate: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
           Left = 517.795610000000000000
+          Top = 3.779530000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
@@ -992,11 +1017,13 @@ object FormMain: TFormMain
           Memo.UTF8W = (
             '[frxDBDataset2."MinFileDate"]')
           ParentFont = False
+          VAlign = vaCenter
         end
         object frxDBDataset2MaxFileDate: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
           Left = 616.063390000000000000
+          Top = 3.779530000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
@@ -1013,6 +1040,35 @@ object FormMain: TFormMain
           Memo.UTF8W = (
             '[frxDBDataset2."MaxFileDate"]')
           ParentFont = False
+          VAlign = vaCenter
+        end
+        object Memo24: TfrxMemoView
+          AllowVectorExport = True
+          Left = 79.370130000000000000
+          Top = 3.779530000000000000
+          Width = 147.401670000000000000
+          Height = 18.897650000000000000
+          StretchMode = smMaxHeight
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clRed
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          HAlign = haCenter
+          Highlight.ApplyFill = False
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clGreen
+          Highlight.Font.Height = -13
+          Highlight.Font.Name = 'Arial'
+          Highlight.Font.Style = []
+          Highlight.Condition = '<frxDBDataset2."CpyCnt"> > 1'
+          Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
+          Memo.UTF8W = (
+            'Copy Location(s):')
+          ParentFont = False
+          VAlign = vaCenter
         end
       end
     end
