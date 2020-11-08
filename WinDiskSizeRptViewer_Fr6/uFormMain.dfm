@@ -64,7 +64,7 @@ object FormMain: TFormMain
   object panFolders: TPanel
     Left = 8
     Top = 247
-    Width = 768
+    Width = 617
     Height = 25
     Anchors = [akLeft, akTop, akRight]
     Caption = 
@@ -102,21 +102,57 @@ object FormMain: TFormMain
   object pnlCover: TPanel
     Left = 0
     Top = -2
-    Width = 776
-    Height = 455
+    Width = 241
+    Height = 155
     Anchors = [akLeft, akTop, akRight, akBottom]
     BevelOuter = bvNone
     Caption = 'Loading data...'
     TabOrder = 7
     Visible = False
   end
+  object btnReport: TButton
+    Left = 631
+    Top = 247
+    Width = 145
+    Height = 25
+    Anchors = [akTop, akRight]
+    Caption = 'Preview Report'
+    TabOrder = 8
+    OnClick = btnReportClick
+  end
   object conAdo: TADOConnection
+    Connected = True
+    ConnectionString = 
+      'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=D:\Z\RessiveWinDisk' +
+      'Size DISK MAP REPORTs\WinDiskSizeRpt MAIN (2020.10.17.).mdb;'
+    LoginPrompt = False
+    Mode = cmShareDenyNone
+    Provider = 'Microsoft.Jet.OLEDB.4.0'
     Left = 112
     Top = 40
   end
   object qryAdo_Tasks: TADOQuery
+    Active = True
     Connection = conAdo
+    CursorType = ctStatic
     Parameters = <>
+    SQL.Strings = (
+      'SELECT DISTINCT Task.ID as TaskID, Task.Status,'
+      'switch('
+      '  Task.Status = 1, '#39'Planned'#39','
+      '  Task.Status = 2, '#39'Started'#39','
+      '  Task.Status = 3, '#39'Completed'#39','
+      '  Task.Status = 4, '#39'Report'#39',) as StatusStr,'
+      'Task.Machine, Task.StartDate, Task.EndDate,'
+      'Task.FolderType + '#39' - '#39' + Task.FolderPath as FolderStr,'
+      'Task.Label,'
+      
+        'Task.StorageFree + '#39' free of '#39' + Task.StorageSize as StorageSize' +
+        'Str'
+      'FROM Task'
+      'INNER JOIN FolderRAW ON FolderRAW.ReportSubTaskID = Task.ID'
+      'WHERE FolderRAW.TaskID = 1'
+      'ORDER BY Task.ID')
     Left = 48
     Top = 152
   end
@@ -146,5 +182,82 @@ object FormMain: TFormMain
   object OpenDialog1: TOpenDialog
     Left = 680
     Top = 112
+  end
+  object frxRpt: TfrxReport
+    Version = '6.8'
+    DataSet = frxDBDS_Tasks
+    DataSetName = 'frxDBDataset1'
+    DotMatrixReport = False
+    IniFile = '\Software\Fast Reports'
+    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick, pbCopy, pbSelection]
+    PreviewOptions.Zoom = 1.000000000000000000
+    PrintOptions.Printer = 'Default'
+    PrintOptions.PrintOnSheet = 0
+    ReportOptions.CreateDate = 44140.716742361100000000
+    ReportOptions.LastChange = 44140.725265000000000000
+    ScriptLanguage = 'PascalScript'
+    ScriptText.Strings = (
+      'begin'
+      ''
+      'end.')
+    Left = 656
+    Top = 320
+    Datasets = <
+      item
+        DataSet = frxDBDS_Tasks
+        DataSetName = 'frxDBDataset1'
+      end>
+    Variables = <>
+    Style = <>
+    object Data: TfrxDataPage
+      Height = 1000.000000000000000000
+      Width = 1000.000000000000000000
+    end
+    object Page1: TfrxReportPage
+      PaperWidth = 210.000000000000000000
+      PaperHeight = 297.000000000000000000
+      PaperSize = 9
+      LeftMargin = 10.000000000000000000
+      RightMargin = 10.000000000000000000
+      TopMargin = 10.000000000000000000
+      BottomMargin = 10.000000000000000000
+      Frame.Typ = []
+      MirrorMode = []
+      object frxDBDataset1Label: TfrxMemoView
+        IndexTag = 1
+        AllowVectorExport = True
+        Left = 15.118120000000000000
+        Top = 30.236240000000000000
+        Width = 400.630180000000000000
+        Height = 18.897650000000000000
+        DataField = 'Label'
+        DataSet = frxDBDS_Tasks
+        DataSetName = 'frxDBDataset1'
+        Frame.Typ = []
+        Memo.UTF8W = (
+          '[frxDBDataset1."Label"]')
+      end
+      object frxDBDataset1TaskID: TfrxMemoView
+        IndexTag = 1
+        AllowVectorExport = True
+        Left = 15.118120000000000000
+        Width = 79.370130000000000000
+        Height = 18.897650000000000000
+        DataField = 'TaskID'
+        DataSet = frxDBDS_Tasks
+        DataSetName = 'frxDBDataset1'
+        Frame.Typ = []
+        Memo.UTF8W = (
+          '[frxDBDataset1."TaskID"]')
+      end
+    end
+  end
+  object frxDBDS_Tasks: TfrxDBDataset
+    UserName = 'frxDBDataset1'
+    CloseDataSource = False
+    DataSet = qryAdo_Tasks
+    BCDToCurrency = False
+    Left = 576
+    Top = 320
   end
 end

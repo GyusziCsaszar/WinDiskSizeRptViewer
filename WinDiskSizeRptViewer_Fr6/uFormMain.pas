@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Data.DB,
-  Vcl.Grids, Vcl.DBGrids, Data.Win.ADODB;
+  Vcl.Grids, Vcl.DBGrids, Data.Win.ADODB, frxClass, frxDBSet;
 
 type
   TFormMain = class(TForm)
@@ -24,9 +24,13 @@ type
     OpenDialog1: TOpenDialog;
     pnlPath: TPanel;
     pnlCover: TPanel;
+    btnReport: TButton;
+    frxRpt: TfrxReport;
+    frxDBDS_Tasks: TfrxDBDataset;
     procedure FormShow(Sender: TObject);
     procedure tmrOpenTimer(Sender: TObject);
     procedure btnPathClick(Sender: TObject);
+    procedure btnReportClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -47,7 +51,7 @@ constructor TFormMain.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
 
-  Application.Title := 'Win Disk Size - Report Viewer (FastReport 6) v1.00';
+  Application.Title := 'Win Disk Size - Report Viewer (FastReport 6) v1.01';
 
   Self.Caption := Application.Title;
 
@@ -80,6 +84,11 @@ begin
     Open(edPath.Text);
   end;
 
+end;
+
+procedure TFormMain.btnReportClick(Sender: TObject);
+begin
+  frxRpt.ShowReport();
 end;
 
 procedure TFormMain.Open(sMdbPath: string);
