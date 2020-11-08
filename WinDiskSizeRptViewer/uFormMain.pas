@@ -9,7 +9,6 @@ uses
 
 type
   TFormMain = class(TForm)
-    lblPath: TLabel;
     edPath: TEdit;
     btnPath: TButton;
     pnlTasks: TPanel;
@@ -23,6 +22,8 @@ type
     ds_Folders: TDataSource;
     tmrOpen: TTimer;
     OpenDialog1: TOpenDialog;
+    pnlPath: TPanel;
+    pnlCover: TPanel;
     procedure FormShow(Sender: TObject);
     procedure tmrOpenTimer(Sender: TObject);
     procedure btnPathClick(Sender: TObject);
@@ -46,7 +47,7 @@ constructor TFormMain.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
 
-  Application.Title := 'Win Disk Size - Report Viewer v1.00';
+  Application.Title := 'Win Disk Size - Report Viewer v1.01';
 
   Self.Caption := Application.Title;
 
@@ -88,6 +89,11 @@ begin
 
   try
 
+    pnlCover.Visible := True;
+    pnlCover.Update();
+
+    //
+
     qryAdo_Tasks.Active := False;
     qryAdo_Tasks.SQL.Clear();
 
@@ -111,13 +117,15 @@ begin
 
     sSQL := 'SELECT DISTINCT Task.ID as TaskID, Task.Status'
           + ', switch('
-          + '  Task.Status = 1, "Planned",'
-          + '  Task.Status = 2, "Started",'
-          + '  Task.Status = 3, "Completed",'
-          + '  Task.Status = 4, "Report",'
+          + '  Task.Status = 1, ''Planned'','
+          + '  Task.Status = 2, ''Started'','
+          + '  Task.Status = 3, ''Completed'','
+          + '  Task.Status = 4, ''Report'','
           + ') as StatusStr'
           + ', Task.Machine, Task.StartDate, Task.EndDate'
-          + ', Task.FolderType, Task.FolderPath, Task.Label, Task.StorageSize, Task.StorageFree'
+          + ', Task.FolderType + '' - '' + Task.FolderPath as FolderStr' //', Task.FolderType, Task.FolderPath'
+          + ', Task.Label' //', Task.StorageSize, Task.StorageFree'
+          + ', Task.StorageFree + '' free of '' + Task.StorageSize as StorageSizeStr'
           + ' FROM Task'
           + ' INNER JOIN FolderRAW ON FolderRAW.ReportSubTaskID = Task.ID'
           + ' WHERE FolderRAW.TaskID = ' + '1' {iReportTaskID}
@@ -139,6 +147,13 @@ begin
           + ') as CpyCnt, B.ReportSubTaskID as TaskID, T2.Label, B.FileCountSelf, B.FileCountSUM, B.FileSizeSelf'
           + ', B.FileSizeSUM, B.MinFileDate, B.MaxFileDate, B.NameShort83, B.PathShort83'
           + ', B.NameLong, B.PathLong'
+          + ', switch('
+          + '  Round(B.FileSizeSUM,0) < 1024, Str(Round(B.FileSizeSUM,0)) + '' B'','
+          + '  Round(B.FileSizeSUM,0) > 1073741823, Str(Round(B.FileSizeSUM / 1073741824,2)) + '' GB'','
+          + '  Round(B.FileSizeSUM,0) > 1048575, Str(Round(B.FileSizeSUM / 1048576,2)) + '' MB'','
+          + '  Round(B.FileSizeSUM,0) > 1023, Str(Round(B.FileSizeSUM / 1024,2)) + '' KB'','
+        //+ '  true, Str(B.FileSizeSUM) + '' B'''
+          + ') as FileSizeSUMStr'
           + ' FROM FolderRAW as B'
           + ' INNER JOIN Task as T2 ON B.ReportSubTaskID = T2.ID'
           + ' WHERE B.TaskID = ' + '1' {iReportTaskID}
@@ -154,6 +169,11 @@ begin
 
     FitGrid(dbGrid_Tasks);
     FitGrid(dbGrid_Folders);
+
+    //
+
+    pnlCover.Visible := False;
+    pnlCover.Update();
 
   except
 

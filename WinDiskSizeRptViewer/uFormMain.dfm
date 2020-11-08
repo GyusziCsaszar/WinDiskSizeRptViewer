@@ -18,36 +18,27 @@ object FormMain: TFormMain
     461)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblPath: TLabel
-    Left = 8
-    Top = 8
-    Width = 127
-    Height = 13
-    Caption = 'Win Disk Size Report Path:'
-  end
   object edPath: TEdit
-    Left = 141
-    Top = 5
-    Width = 596
+    Left = 8
+    Top = 37
+    Width = 729
     Height = 21
     Anchors = [akLeft, akTop, akRight]
     TabOrder = 0
-    ExplicitWidth = 447
   end
   object btnPath: TButton
     Left = 743
-    Top = 3
+    Top = 35
     Width = 33
     Height = 25
     Anchors = [akTop, akRight]
     Caption = '...'
     TabOrder = 1
     OnClick = btnPathClick
-    ExplicitLeft = 594
   end
   object pnlTasks: TPanel
     Left = 8
-    Top = 32
+    Top = 64
     Width = 768
     Height = 25
     Anchors = [akLeft, akTop, akRight]
@@ -58,7 +49,7 @@ object FormMain: TFormMain
   end
   object dbGrid_Tasks: TDBGrid
     Left = 8
-    Top = 63
+    Top = 95
     Width = 768
     Height = 146
     Anchors = [akLeft, akTop, akRight]
@@ -72,7 +63,7 @@ object FormMain: TFormMain
   end
   object panFolders: TPanel
     Left = 8
-    Top = 215
+    Top = 247
     Width = 768
     Height = 25
     Anchors = [akLeft, akTop, akRight]
@@ -85,9 +76,9 @@ object FormMain: TFormMain
   end
   object dbGrid_Folders: TDBGrid
     Left = 8
-    Top = 246
+    Top = 280
     Width = 768
-    Height = 207
+    Height = 173
     Anchors = [akLeft, akTop, akRight, akBottom]
     DataSource = ds_Folders
     TabOrder = 5
@@ -97,20 +88,42 @@ object FormMain: TFormMain
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
   end
+  object pnlPath: TPanel
+    Left = 8
+    Top = 6
+    Width = 768
+    Height = 25
+    Anchors = [akLeft, akTop, akRight]
+    Caption = 'Win Disk Size Report path (*.mdb)'
+    Color = clInfoBk
+    ParentBackground = False
+    TabOrder = 6
+  end
+  object pnlCover: TPanel
+    Left = 0
+    Top = -2
+    Width = 776
+    Height = 455
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    BevelOuter = bvNone
+    Caption = 'Loading data...'
+    TabOrder = 7
+    Visible = False
+  end
   object conAdo: TADOConnection
-    Left = 48
-    Top = 8
+    Left = 112
+    Top = 40
   end
   object qryAdo_Tasks: TADOQuery
     Connection = conAdo
     Parameters = <>
     Left = 48
-    Top = 120
+    Top = 152
   end
   object ds_Tasks: TDataSource
     DataSet = qryAdo_Tasks
     Left = 120
-    Top = 120
+    Top = 152
   end
   object qryAdo_Folders: TADOQuery
     Connection = conAdo
@@ -128,10 +141,10 @@ object FormMain: TFormMain
     Interval = 100
     OnTimer = tmrOpenTimer
     Left = 680
-    Top = 8
+    Top = 40
   end
   object OpenDialog1: TOpenDialog
     Left = 680
-    Top = 80
+    Top = 112
   end
 end
