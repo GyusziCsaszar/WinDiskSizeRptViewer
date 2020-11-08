@@ -27,6 +27,7 @@ type
     btnReport: TButton;
     frxRpt: TfrxReport;
     frxDBDS_Tasks: TfrxDBDataset;
+    frxDBDS_Folders: TfrxDBDataset;
     procedure FormShow(Sender: TObject);
     procedure tmrOpenTimer(Sender: TObject);
     procedure btnPathClick(Sender: TObject);
@@ -51,7 +52,7 @@ constructor TFormMain.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
 
-  Application.Title := 'Win Disk Size - Report Viewer (FastReport 6) v1.02';
+  Application.Title := 'Win Disk Size - Report Viewer (FastReport 6) v1.03';
 
   Self.Caption := Application.Title;
 
