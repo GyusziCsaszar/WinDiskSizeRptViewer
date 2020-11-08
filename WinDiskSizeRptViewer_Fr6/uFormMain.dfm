@@ -185,8 +185,6 @@ object FormMain: TFormMain
   end
   object frxRpt: TfrxReport
     Version = '6.8'
-    DataSet = frxDBDS_Tasks
-    DataSetName = 'frxDBDataset1'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick, pbCopy, pbSelection]
@@ -194,7 +192,7 @@ object FormMain: TFormMain
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 44140.716742361100000000
-    ReportOptions.LastChange = 44140.725265000000000000
+    ReportOptions.LastChange = 44140.778730775500000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       'begin'
@@ -221,34 +219,69 @@ object FormMain: TFormMain
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      ColumnWidth = 95.000000000000000000
       Frame.Typ = []
       MirrorMode = []
-      object frxDBDataset1Label: TfrxMemoView
-        IndexTag = 1
-        AllowVectorExport = True
-        Left = 15.118120000000000000
-        Top = 30.236240000000000000
-        Width = 400.630180000000000000
-        Height = 18.897650000000000000
-        DataField = 'Label'
+      object MasterData1: TfrxMasterData
+        FillType = ftBrush
+        Frame.Typ = []
+        Height = 56.692950000000000000
+        Top = 18.897650000000000000
+        Width = 718.110700000000000000
         DataSet = frxDBDS_Tasks
         DataSetName = 'frxDBDataset1'
-        Frame.Typ = []
-        Memo.UTF8W = (
-          '[frxDBDataset1."Label"]')
-      end
-      object frxDBDataset1TaskID: TfrxMemoView
-        IndexTag = 1
-        AllowVectorExport = True
-        Left = 15.118120000000000000
-        Width = 79.370130000000000000
-        Height = 18.897650000000000000
-        DataField = 'TaskID'
-        DataSet = frxDBDS_Tasks
-        DataSetName = 'frxDBDataset1'
-        Frame.Typ = []
-        Memo.UTF8W = (
-          '[frxDBDataset1."TaskID"]')
+        RowCount = 0
+        object frxDBDataset1Label: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Width = 188.976500000000000000
+          Height = 56.692950000000000000
+          DataField = 'Label'
+          DataSet = frxDBDS_Tasks
+          DataSetName = 'frxDBDataset1'
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Memo.UTF8W = (
+            '[frxDBDataset1."Label"]')
+        end
+        object frxDBDataset1StorageSizeStr: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 188.976500000000000000
+          Width = 94.488250000000000000
+          Height = 56.692950000000000000
+          DataField = 'StorageSizeStr'
+          DataSet = frxDBDS_Tasks
+          DataSetName = 'frxDBDataset1'
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Memo.UTF8W = (
+            '[frxDBDataset1."StorageSizeStr"]')
+        end
+        object frxDBDataset1Machine: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 283.464750000000000000
+          Width = 75.590600000000000000
+          Height = 56.692950000000000000
+          DataField = 'Machine'
+          DataSet = frxDBDS_Tasks
+          DataSetName = 'frxDBDataset1'
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Memo.UTF8W = (
+            '[frxDBDataset1."Machine"]')
+        end
+        object frxDBDataset1StatusStr: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 359.055350000000000000
+          Width = 94.488250000000000000
+          Height = 56.692950000000000000
+          DataField = 'StatusStr'
+          DataSet = frxDBDS_Tasks
+          DataSetName = 'frxDBDataset1'
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Memo.UTF8W = (
+            '[frxDBDataset1."StatusStr"]')
+        end
       end
     end
   end
